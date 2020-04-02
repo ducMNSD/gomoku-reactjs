@@ -1,0 +1,11 @@
+.board-container {
+  width: 100%;
+}
+
+.board {
+  border: 1px solid #fff;
+}
+
+.board-row {
+  display: flex;
+}
