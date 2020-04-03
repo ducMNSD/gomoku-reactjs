@@ -4,18 +4,21 @@ import { board, won } from './util'
 import Square from './Square'
 
 function Board(props) {
-  const [currentBoard, setCurrentBoard] = useState(board(19))
-  const [currentTurn, setCurrentTurn] = useState(false)
+  const currentBoard = props.current.board
+  const currentTurn = props.current.turn
+  const criteria = props.current.criteria
 
   function clickSquare(i, j) {
+    const prev = JSON.parse(JSON.stringify(props.current));
     if (currentBoard[i][j] != null)
       return
     currentBoard[i][j] = currentTurn
-    setCurrentBoard([...currentBoard])
-    setCurrentTurn(!currentTurn)
+    let winner = null
 
-    console.log(won(currentBoard, 5, [i,j]));
+    if (won(currentBoard, criteria, [i,j]))
+      winner = currentTurn
     
+    props.onChange(prev, currentBoard, winner)
   }
 
   useEffect(() => {
