@@ -1,36 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './Board.css'
-import { board, won } from './util'
 import Square from './Square'
 
-function Board(props) {
-  const currentBoard = props.current.board
-  const currentTurn = props.current.turn
-  const criteria = props.current.criteria
-
-  function clickSquare(i, j) {
-    const prev = JSON.parse(JSON.stringify(props.current));
-    if (currentBoard[i][j] != null)
-      return
-    currentBoard[i][j] = currentTurn
-    let winner = null
-
-    if (won(currentBoard, criteria, [i,j]))
-      winner = currentTurn
-    
-    props.onChange(prev, currentBoard, winner)
-  }
-
-  useEffect(() => {
-    
-  }, [])
-
+function Board({current, onChange, winner}) {
   return (
     <div className="w3-justify">
       <div className="board-container">
         <div className="board">
           {
-            currentBoard.map((x,i) => (
+            current.board.map((x,i) => (
               <div 
                 key={i} 
                 className="board-row"
@@ -40,7 +18,8 @@ function Board(props) {
                     <Square
                       key={j}
                       mark={sx}
-                      onClick={(e) => clickSquare(i, j)}
+                      onClick={(e) => onChange(i, j)}
+                      disabled={winner!=null? true: false}
                     />
                   ))
                 }

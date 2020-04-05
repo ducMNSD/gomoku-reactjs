@@ -12,7 +12,7 @@ function WinnerModal(props) {
       <div className="w3-modal-content">
         <div className="w3-container">
           <span onClick={handleClose} className="w3-button w3-display-topright">&times;</span>
-          <p>Winner is {props.winner? "O" : "X"}</p>
+          <p><b>{props.winner? "O" : "X"}</b>の勝ちです！</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ const OPTION = {
   criteria: 5
 }
 
-function Control(props) {
+function Control({turn, onReset, onUndo}) {
   const [option, setOption] = useState(OPTION)
 
   const handleOnchangeCriteria = (e) => {
@@ -19,36 +19,34 @@ function Control(props) {
   }
 
   const handleReset = () => {
-    props.onReset(option)
+    onReset(option)
   }
 
   const handleUndo = () => {
-    props.onUndo()
+    onUndo()
   }
 
   return (
-    <div className="w3-card-0">
+    <div className="w3-card-0" style={{paddingTop: '3px'}}>
       <header className="w3-container w3-light-grey">
-        <h3>Turn {props.turn? "O" : "X"}</h3>
+        <h3>プレーヤーターン: <b>{turn? "O" : "X"}</b></h3>
       </header>
 
       <div className="w3-row-padding w3-section">
         <div className="w3-half">
-          <label>Size</label>
+          <label>サイズ</label>
           <input 
             className="w3-input w3-border" 
             type="number" 
-            placeholder="Two"
             value={option.size}
             onChange={handleOnchangeSize}
           />
         </div>
         <div className="w3-half">
-          <label>Criteria</label>
+          <label>勝ち条件</label>
           <input 
             className="w3-input w3-border" 
             type="number" 
-            placeholder="Three"
             value={option.criteria}
             onChange={handleOnchangeCriteria}
           />
@@ -61,14 +59,14 @@ function Control(props) {
         className="w3-button w3-block w3-dark-grey"
         onClick={handleReset}
       >
-        Reset
+        リセット
       </button>
       <br/>
       <button 
         className="w3-button w3-block w3-dark-grey"
         onClick={handleUndo}
       >
-        Undo
+        先に戻す
       </button>
     </div>
   )
