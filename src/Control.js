@@ -10,12 +10,12 @@ function Control({turn, onReset, onUndo}) {
 
   const handleOnchangeCriteria = (e) => {
     const criteria = parseInt(e.target.value)
-    setOption({criteria, size: option.size})
+    setOption({criteria: criteria, size: option.size})
   }
 
   const handleOnchangeSize = (e) => {
     const size = parseInt(e.target.value)
-    setOption({criteria: option.criteria, size})
+    setOption({criteria: option.criteria, size: size})
   }
 
   const handleReset = () => {

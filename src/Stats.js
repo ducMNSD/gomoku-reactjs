@@ -9,10 +9,10 @@ function Stats({data}) {
           <header className="w3-container w3-light-grey">
             <h4>統計</h4>
           </header>
-          <ul class="w3-ul ">
+          <ul className="w3-ul ">
             {
               data.map((o, i) => 
-              <li>#{i+1}. <b>{o? "O" : "X"}</b>の勝ちです</li>
+              <li key={i}>#{i+1}. <b>{o? "O" : "X"}</b>の勝ちです</li>
               )
             }
           </ul>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Board from './Board'
 import Control, { OPTION } from './Control'
@@ -7,25 +7,31 @@ import WinnerModal from './WinnerModal'
 import Stats from './Stats'
 
 function App() {
+  const [option, setOption] = useState(OPTION)
   const [current, setCurrent] = useState({
-    board: board(OPTION.size),
+    board: board(option.size),
     turn: false,
-    criteria: OPTION.criteria
+    criteria: option.criteria
   })
   const [history, setHistory] = useState([current])
   const [winner, setWinner] = useState(null)
   const [stats, setStats] = useState([])
 
-  const handleReset = (newOption) => {
-    let newBoard = board(newOption.size), newCriteria = newOption.criteria
-
-    setCurrent({
+  useEffect(() => {
+    let newBoard = board(option.size), newCriteria = option.criteria
+    let newCurrent = {
       board: newBoard,
       turn: false,
       criteria: newCriteria
-    })
-    setHistory([current])
+    }
+    setCurrent(newCurrent)
+    setHistory([newCurrent])
     setWinner(null)
+  }, [option])
+
+  const handleReset = (newOption) => {
+    if (newOption!=null) setOption(newOption)
+    else setOption({...option})
   }
 
   const handleUndo = () => {
@@ -80,6 +86,7 @@ function App() {
       </div>
       
       <WinnerModal
+        onReset={handleReset}
         winner={winner}
       />
     </div>
